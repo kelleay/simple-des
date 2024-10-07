@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"></link>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>S-DES 加密 / 解密</h1>
+        <nav>
+            <ul id="functionNav">
+                <li data-value="feature1">8 bit 二进制数据加密/解密</li>
+                <li data-value="feature2">字符串数据加密解密</li>
+                <li data-value="feature3">暴力破解密钥</li>
+            </ul>
+        </nav>
+
+        <div id="content">
+            <div class="feature" id="feature1" style="display: none;">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="inputBlock" placeholder="明文">
+                    <label for="inputBlock">8bit二进制 明文 / 密文</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="Key1" placeholder="密钥">
+                    <label for="Key1">10bit密钥</label>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-success btn-large" 
+                        onclick="handleClickEncryptInputBlock()"
+                    style="margin-right: 100px;width: 150px;">加密</button>
+                    <button type="button" class="btn btn-success btn-large" 
+                        onclick="handleClickDecryptInputBlock()"
+                    style="width: 150px;">解密</button>
+                </div>
+                <div class="form-floating" style="margin-top: 40px;">
+                    <textarea class="form-control" readonly id="floatingTextarea1" style="height: 100px"></textarea>
+                    <label for="floatingTextarea1">结果</label>
+                </div>
+            </div>
+            <div class="feature" id="feature2" style="display: none;">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="inputString" placeholder="明文">
+                    <label for="inputString">字符串 明文 / 密文</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="Key2" placeholder="密钥">
+                    <label for="Key2">10bit密钥</label>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-success btn-large" 
+                        onclick="handleClickEncryptInputString()"
+                    style="margin-right: 100px;width: 150px;">加密</button>
+                    <button type="button" class="btn btn-success btn-large" 
+                        onclick="handleClickDecryptInputString()"
+                    style="width: 150px;">解密</button>
+                </div>
+                <div class="form-floating" style="margin-top: 40px;">
+                    <textarea class="form-control" readonly id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">结果</label>
+                </div>
+            </div>
+            <div class="feature" id="feature3" style="display: none;
+                min-height: 350px; height: auto;">
+                <div id="pairsContainer"></div>
+                <!-- <div style="margin-bottom: 10px;">
+                    <div class="form-floating mb-3" style="display: inline-block; width: 300px; margin-right: 80px;">
+                        <input class="form-control" id="inputString" placeholder="明文">
+                        <label for="inputString">字符串 明文 / 密文</label>
+                    </div>
+                    <div class="form-floating mb-3" style="display: inline-block; width: 300px;">
+                        <input class="form-control" id="inputString" placeholder="明文">
+                        <label for="inputString">字符串 明文 / 密文</label>
+                    </div>
+                </div> -->
+                <div class="button-group">
+                    <button type="button" class="btn btn-success btn-large" 
+                        onclick="handleClickAddPair()"
+                    style="margin-right: 100px;width: 190px;">添加 明文 / 密文 对</button>
+                    <button type="button" class="btn btn-success btn-large" 
+                        onclick="handleClickCracking()"
+                    style="width: 190px;">开始破解</button>
+                </div>
+                <div class="form-floating" style="margin-top: 40px;">
+                    <textarea class="form-control" readonly id="floatingTextarea3" style="height: 100px"></textarea>
+                    <label for="floatingTextarea3">结果</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+    <script>
+// 获取导航栏和内容区
+const functionNav = document.getElementById('functionNav');
+const contentDiv = document.getElementById('content');
+
+// 为导航栏的每个列表项添加点击事件
+functionNav.addEventListener('click', function(e) {
+    if (e.target.tagName === 'LI') {
+        const selectedValue = e.target.getAttribute('data-value');
+
+        // 隐藏所有功能内容
+        const features = document.querySelectorAll('.feature');
+        features.forEach(feature => {
+            feature.style.display = 'none';
+        });
+
+        // 显示对应的功能内容
+        const selectedFeature = document.getElementById(selectedValue);
+        if (selectedFeature) {
+            selectedFeature.style.display = 'block';
+        }
+    }
+});
+
+    </script>
+</body>
+</html>
